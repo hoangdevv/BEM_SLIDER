@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEM</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+   <div id="toast">
+     <!-- SUCCESS -->
+     
+    <!-- INFO -->
+    <!-- <div class="toast toast--info">
+        <div class="toast__icon"> 
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Info</h3>
+            <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+        </div>
+        <div class="toast__close">
+            <i class="fa-sharp fa-solid fa-xmark"></i>
+        </div>
+    </div> -->
+
+    <!-- WARNING -->
+    <!-- <div class="toast toast--warning">
+        <div class="toast__icon"> 
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Warning</h3>
+            <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+        </div>
+        <div class="toast__close">
+            <i class="fa-sharp fa-solid fa-xmark"></i>
+        </div>
+    </div> -->
+
+    <!-- ERROR -->
+    <!-- <div class="toast toast--error">
+        <div class="toast__icon toast--error"> 
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Error</h3>
+            <p class="toast__msg">Anyone with access can view your invited visitors.</p>
+        </div>
+        <div class="toast__close">
+            <i class="fa-sharp fa-solid fa-xmark"></i>
+        </div>
+    </div> -->
+   </div>
+
+   <div>
+    <div onclick="showSuccessToast();" class="btn btn--success ">Show success toast</div>
+    <div onclick="showErrorToast();" class="btn btn--error">Show error toast</div>
+   </div>
+</body>
+</html>
+
+<!-- PHAN HARD SCRIPT -->
+<script>
+    function toast({title='',msg='',type='info',duration=3000 }){
+        const main = document.getElementById('toast');
+        
+
+        if(main){
+            const toast = document.createElement('div');
+
+            //auto remove
+            const autoRemove = setTimeout(function(){
+                main.removeChild(toast);
+            },duration+ 1000);  // + thêm 1000 để không mất tính mất mờ đi
+
+            //remove toast when click
+            toast.onclick= function(e){
+                // console.log(e.target);
+                if(e.target.closest('.toast__close')){
+                  main.removeChild(toast);
+                  clearTimeout(autoRemove)
+                }
+            }
+
+            //set icons
+            const icons= {
+            success: 'fa-solid fa-circle-check',
+            info: 'fa-sharp fa-solid fa-circle-info',
+            warning: 'fa-solid fa-circle-exclamation',
+            error: 'fa-solid fa-circle-exclamation',
+            };
+            //gan icons = icon
+            const icon= icons[type];
+
+            //3000 = delay 3s
+            const delay = (duration/ 1000);
+
+            toast.classList.add('toast', `toast--${type}`);
+            toast.style.animation = ` slideInLeft ease 0.5s, slideHideOut linear 1s ${delay}s forwards`;
+
+            toast.innerHTML=`
+            <div class="toast__icon "> 
+                <i class="${icon}"></i>
+            </div>
+            <div class="toast__body">
+                <h3 class="toast__title">${title}</h3>
+                <p class="toast__msg">${msg}</p>
+            </div>
+            <div class="toast__close"> 
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            `; 
+
+            // đưa toast vào trong hàm main
+            main.appendChild(toast);
+
+        }
+    }
+
+    function showSuccessToast(){
+        toast({
+        title: 'Success',
+        msg: 'Anyone with access can view your invited visitors and color madium set.',
+        type: 'success',
+        duration: 3000
+    });
+    }
+    function showErrorToast(){
+        toast({
+        title: 'Error',
+        msg: 'Warning! Try again.',
+        type: 'error',
+        duration: 3000
+    });
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEM</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="toast">
+        <div class="toast__icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div class="toast__body">
+            <h3 class="toast__title">Success</h3>
+             <p class="toast__msg">máy kết nối máy tính internet(Window hoặc MacOS)</p>
+        </div>
+        <div class="toast__close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+</body>
+</html> -->
